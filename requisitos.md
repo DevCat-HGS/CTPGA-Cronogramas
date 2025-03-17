@@ -55,7 +55,7 @@
 2. El instructor agrega contenido a la guía asociada.
 3. Los datos se almacenan en la base de datos MongoDB.
 
-### **Gestín de Administradores por el Superadmin**
+### **Gestión de Administradores por el Superadmin**
 
 1. El superadmin accede al panel de administración.
 2. Visualiza la información de cada administrador:
@@ -102,17 +102,73 @@
 - **Base de Datos:** MongoDB.
 - **Frontend:** React.js con Context API para la gestión del estado.
 - **Autenticación:** JWT (JSON Web Tokens) para la gestión segura de sesiones.
-- **Despliegue:** Servicios en la nube como AWS, Vercel o DigitalOcean. **Backend:** Node.js con Express.js.
-- **Base de Datos:** MongoDB.
-- **Frontend:** React.js con Context API para la gestión del estado.
-- **Autenticación:** JWT (JSON Web Tokens) para la gestión segura de sesiones.
-- **Despliegue:** Servicios en la nube como AWS, Vercel o DigitalOcean. **Backend:** Node.js con Express.js.
-- **Base de Datos:** MongoDB.
-- **Frontend:** React.js.
-- **Autenticación:** JWT (JSON Web Tokens) para la gestión segura de sesiones.
-- **Despliegue:** Servicios en la nube como AWS, Vercel o DigitalOcean.
+- **Despliegue:** Servicios en la nube como AWS, Vercel o DigitalOcean. 
 
 ## 7. Diagrama de Flujo
 
 El siguiente diagrama de flujo representa el proceso de registro, aprobación de instructores y gestión de actividades por parte de cada rol (se incluirá el diagrama visual).
+
+## 8. Recomendaciones sobre el Contenido y Requisitos del Proyecto CTPGA Manager
+
+Basado en el análisis del proyecto, se ofrecen las siguientes recomendaciones específicas sobre el contenido y los requisitos:
+
+### Contenido y Estructura
+
+1. **Refina la estructura de las guías:**
+   - Considera añadir una sección de "Recursos adicionales" o "Material complementario"
+   - Implementa un sistema de etiquetado para facilitar la búsqueda y categorización
+
+2. **Mejora el sistema de actividades:**
+   - Añade la posibilidad de establecer fechas límite y recordatorios
+   - Implementa un sistema de seguimiento de progreso para los instructores
+
+3. **Amplía las capacidades de reportes:**
+   - Define claramente qué tipos de reportes serán generados (asistencia, rendimiento, etc.)
+   - Considera añadir visualizaciones gráficas además de los reportes en Excel
+
+### Requisitos Funcionales Adicionales
+
+1. **Fortalece el sistema de notificaciones:**
+   - Implementa diferentes canales (email, notificaciones push, dentro de la plataforma)
+   - Permite a los usuarios configurar sus preferencias de notificación
+
+2. **Mejora el proceso de aprobación:**
+   - Considera un sistema de aprobación en etapas para guías complejas
+   - Implementa comentarios específicos en el proceso de revisión
+
+3. **Añade funcionalidades colaborativas:**
+   - Permite que varios instructores trabajen en la misma guía
+   - Implementa un sistema de comentarios y sugerencias
+
+4. **Considera un sistema de plantillas:**
+   - Crea plantillas predefinidas para diferentes tipos de guías y actividades
+   - Permite a los superadministradores definir nuevas plantillas
+
+### Mejoras en Requisitos No Funcionales
+
+1. **Mejora la accesibilidad:**
+   - Asegúrate de que la plataforma cumpla con estándares WCAG 2.1
+   - Implementa diseño responsivo para diferentes dispositivos
+
+2. **Optimiza el rendimiento:**
+   - Implementa estrategias de carga perezosa (lazy loading) para contenido extenso
+   - Considera la compresión de imágenes y otros recursos multimedia
+
+3. **Refuerza la seguridad:**
+   - Implementa protección contra ataques comunes (CSRF, XSS, inyección SQL)
+   - Considera auditorías de seguridad periódicas
+
+4. **Mejora la resiliencia:**
+   - Implementa un sistema de respaldo y recuperación de datos
+   - Considera estrategias de manejo de fallos y alta disponibilidad
+
+### Tecnologías y Arquitectura
+
+1. **Considera una arquitectura de microservicios:**
+   - Separa funcionalidades como autenticación, notificaciones y generación de reportes
+   - Facilita el mantenimiento y la escalabilidad independiente
+
+2. **Implementa una API bien documentada:**
+   - Utiliza Swagger o similar para documentar endpoints
+   - Facilita la integración futura con otros sistemas del SENA
 
