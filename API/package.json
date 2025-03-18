@@ -6,8 +6,9 @@
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js",
-    "client": "cd client && npm run dev",
-    "dev:full": "concurrently \"npm run dev\" \"npm run client\""
+    "admin": "cd ../AdminPanel && npm run dev",
+    "instru": "cd ../IntructorPanel && npm run dev",
+    "full": "concurrently \"npm run dev\" \"npm run admin\""
   },
   "keywords": [
     "sena",

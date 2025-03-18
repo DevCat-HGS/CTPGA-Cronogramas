@@ -34,7 +34,7 @@ This software contains technology and methods that are patented or patent-pendin
 
 For licensing inquiries, please contact DevCat-HGS at:
 
-[Contact Information]
+[haroldguerrerosena@gmail.com]
 
 ---
 
