@@ -245,5 +245,105 @@ Se recomienda configurar un pipeline de CI/CD que ejecute automáticamente las p
 4. **Nombrar las pruebas de manera descriptiva** para facilitar la depuración.
 5. **Establecer un objetivo de cobertura** (recomendado: 80% o más).
 6. **Revisar y refactorizar las pruebas** regularmente.
-7. **Incluir pruebas para casos de error** y casos límite. pruebas de componentes React
-- **Cypress**: Para
+7. **Incluir pruebas para casos de error** y casos límite, no solo para el camino feliz.
+8. **Documentar los casos de prueba** para facilitar su mantenimiento y comprensión.
+9. **Automatizar las pruebas** siempre que sea posible para ahorrar tiempo y recursos.
+
+## Estrategias de Mocking
+
+### Mocks vs Stubs vs Spies
+
+- **Mocks**: Reemplazan completamente la funcionalidad de un objeto o módulo.
+- **Stubs**: Proporcionan respuestas predefinidas a llamadas específicas.
+- **Spies**: Registran información sobre las llamadas a funciones sin alterar su comportamiento.
+
+### Ejemplos de Mocking
+
+#### Backend
+
+```javascript
+// Mockear un servicio externo
+const mockPaymentService = {
+  processPayment: jest.fn().mockResolvedValue({ success: true, transactionId: '123456' })
+};
+
+// Mockear una respuesta de base de datos
+jest.mock('../models/User', () => ({
+  findById: jest.fn().mockResolvedValue({
+    _id: 'user123',
+    name: 'Test User',
+    email: 'test@example.com',
+    role: 'instructor'
+  })
+}));
+```
+
+#### Frontend
+
+```javascript
+// Mockear una llamada a API
+jest.mock('../api/auth', () => ({
+  login: jest.fn().mockResolvedValue({
+    user: { id: '123', name: 'Test User', role: 'admin' },
+    token: 'fake-jwt-token'
+  })
+}));
+
+// Mockear un hook de React
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useParams: jest.fn().mockReturnValue({ id: '123' })
+}));
+```
+
+## Análisis de Cobertura
+
+El análisis de cobertura de código ayuda a identificar partes del código que no están siendo probadas adecuadamente.
+
+### Métricas de Cobertura
+
+- **Cobertura de líneas**: Porcentaje de líneas de código ejecutadas durante las pruebas.
+- **Cobertura de ramas**: Porcentaje de ramas de decisión (if/else, switch) ejecutadas.
+- **Cobertura de funciones**: Porcentaje de funciones llamadas durante las pruebas.
+- **Cobertura de declaraciones**: Porcentaje de declaraciones ejecutadas.
+
+### Generación de Informes
+
+```bash
+# Generar informe de cobertura
+npm test -- --coverage
+
+# Generar informe HTML detallado
+npm test -- --coverage --coverageReporters="html"
+```
+
+## Solución de Problemas Comunes
+
+### Pruebas Asíncronas
+
+- Usar `async/await` para manejar código asíncrono.
+- Asegurarse de que las promesas se resuelvan antes de finalizar la prueba.
+- Utilizar `jest.useFakeTimers()` para controlar temporizadores.
+
+### Pruebas Flaky (Inestables)
+
+- Identificar y eliminar dependencias entre pruebas.
+- Evitar dependencias de tiempo real usando mocks de tiempo.
+- Asegurarse de que el entorno de prueba se reinicie completamente entre pruebas.
+
+### Rendimiento de las Pruebas
+
+- Agrupar pruebas relacionadas para reducir la configuración repetitiva.
+- Usar `--runInBand` para pruebas que comparten recursos.
+- Considerar el uso de paralelización para conjuntos de pruebas independientes.
+
+## Recursos Adicionales
+
+- [Documentación oficial de Jest](https://jestjs.io/docs/getting-started)
+- [Documentación de React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
+- [Guía de Cypress](https://docs.cypress.io/guides/overview/why-cypress)
+- [Mejores prácticas de OWASP para pruebas de seguridad](https://owasp.org/www-project-web-security-testing-guide/)
+
+---
+
+Este documento es una guía viva que debe actualizarse regularmente a medida que evoluciona el proyecto CTPGA Manager y sus necesidades de prueba.
