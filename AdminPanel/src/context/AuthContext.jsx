@@ -11,15 +11,61 @@ export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [tokenRefreshing, setTokenRefreshing] = useState(false);
 
-  // Configurar el token en los headers de axios
+  // Configurar el token en los headers de axios y el interceptor para renovación automática
   useEffect(() => {
     if (token) {
       axios.defaults.headers.common['x-auth-token'] = token;
     } else {
       delete axios.defaults.headers.common['x-auth-token'];
     }
-  }, [token]);
+
+    // Configurar interceptor para manejar errores de autenticación
+    const interceptor = axios.interceptors.response.use(
+      response => response,
+      async error => {
+        // Si el error es 401 (no autorizado) y tenemos un token, intentar renovarlo
+        if (error.response && error.response.status === 401 && token && !tokenRefreshing) {
+          setTokenRefreshing(true);
+          
+          try {
+            // Intentar renovar el token
+            const res = await axios.post('/api/auth/refresh', { token }, {
+              headers: { 'x-auth-token': null } // No enviar el token expirado
+            });
+            
+            // Actualizar el token
+            const newToken = res.data.token;
+            localStorage.setItem('token', newToken);
+            setToken(newToken);
+            
+            // Reintentar la petición original con el nuevo token
+            const originalRequest = error.config;
+            originalRequest.headers['x-auth-token'] = newToken;
+            return axios(originalRequest);
+          } catch (refreshError) {
+            // Si no se puede renovar el token, cerrar sesión
+            console.error('Error al renovar el token:', refreshError);
+            localStorage.removeItem('token');
+            setToken(null);
+            setUser(null);
+            setIsAuthenticated(false);
+            return Promise.reject(error);
+          } finally {
+            setTokenRefreshing(false);
+          }
+        }
+        
+        return Promise.reject(error);
+      }
+    );
+    
+    // Limpiar interceptor al desmontar
+    return () => {
+      axios.interceptors.response.eject(interceptor);
+    };
+  }, [token, tokenRefreshing]);
 
   // Cargar usuario si hay token
   useEffect(() => {
