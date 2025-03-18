@@ -172,3 +172,34 @@ Basado en el análisis del proyecto, se ofrecen las siguientes recomendaciones e
    - Utiliza Swagger o similar para documentar endpoints
    - Facilita la integración futura con otros sistemas del SENA
 
+### Nuevas Recomendaciones Técnicas
+
+1. **Sistema de Respaldo y Recuperación:**
+   - Implementa un sistema automatizado de respaldo de la base de datos
+   - Establece políticas de retención y recuperación de datos
+   - Programa respaldos incrementales diarios y completos semanales
+
+2. **Sistema de Logging Detallado:**
+   - Implementa un sistema de logging estructurado para todas las operaciones críticas
+   - Registra información detallada sobre errores, accesos y modificaciones
+   - Establece diferentes niveles de logging (debug, info, warning, error)
+   - Implementa rotación de logs para evitar archivos demasiado grandes
+
+3. **Documentación API con Swagger:**
+   - Documenta todos los endpoints de la API con Swagger/OpenAPI
+   - Incluye descripciones detalladas, parámetros requeridos y respuestas esperadas
+   - Proporciona ejemplos de uso para cada endpoint
+   - Implementa una interfaz interactiva para probar los endpoints
+
+4. **Sistema de Feedback para Usuarios:**
+   - Implementa un sistema para que los usuarios puedan enviar comentarios y sugerencias
+   - Permite calificar las guías y actividades
+   - Facilita la comunicación entre instructores y administradores
+   - Incluye un sistema de tickets para reportar problemas
+
+5. **Control de Versiones para Guías:**
+   - Implementa un sistema de versionado para las guías
+   - Mantén un historial de cambios con fechas y autores
+   - Permite comparar diferentes versiones de una misma guía
+   - Facilita la restauración de versiones anteriores
+
