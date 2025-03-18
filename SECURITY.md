@@ -87,4 +87,49 @@ Actualmente no contamos con un programa formal de recompensas por bugs, pero rec
 
 ## Configuración Segura
 
-1
+1. **Entorno de Producción**:
+   - Deshabilitar mensajes de error detallados
+   - Configurar correctamente los encabezados HTTP de seguridad
+   - Implementar HTTPS obligatorio con redirección automática desde HTTP
+
+2. **Gestión de Dependencias**:
+   - Mantener todas las dependencias actualizadas
+   - Utilizar herramientas como npm audit o Snyk para detectar vulnerabilidades
+   - Implementar un proceso de revisión para nuevas dependencias
+
+3. **Configuración de Servidor**:
+   - Seguir el principio de mínimo privilegio para usuarios y procesos
+   - Configurar firewalls y reglas de acceso adecuadas
+   - Implementar límites de recursos para prevenir ataques DoS
+
+## Plan de Respuesta a Incidentes
+
+1. **Preparación**:
+   - Mantener un inventario actualizado de sistemas y datos
+   - Establecer roles y responsabilidades claras
+   - Documentar procedimientos de respuesta
+
+2. **Detección y Análisis**:
+   - Monitorear continuamente los sistemas en busca de actividades sospechosas
+   - Establecer procedimientos para clasificar la gravedad de los incidentes
+   - Documentar todos los hallazgos durante la investigación
+
+3. **Contención, Erradicación y Recuperación**:
+   - Aislar sistemas comprometidos
+   - Eliminar la causa raíz del incidente
+   - Restaurar sistemas y datos desde respaldos verificados
+
+4. **Actividades Post-Incidente**:
+   - Realizar un análisis retrospectivo
+   - Documentar lecciones aprendidas
+   - Actualizar políticas y procedimientos según sea necesario
+
+## Recursos de Seguridad
+
+- [OWASP Top Ten](https://owasp.org/www-project-top-ten/)
+- [SANS Institute](https://www.sans.org/)
+- [Mozilla Web Security Guidelines](https://infosec.mozilla.org/guidelines/web_security)
+
+---
+
+Este documento será revisado y actualizado regularmente para reflejar las mejores prácticas actuales de seguridad.
