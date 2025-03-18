@@ -45,25 +45,57 @@ router.post(
 );
 
 // @route   GET api/activities
-// @desc    Obtener todas las actividades
+// @desc    Obtener todas las actividades con búsqueda avanzada
 // @access  Private
 router.get('/', auth, async (req, res) => {
   try {
-    let activities;
-
+    const { buildSearchQuery, buildPaginationOptions, buildSortOptions } = require('../utils/searchUtils');
+    
+    // Definir campos para búsqueda
+    const textFields = ['title', 'description'];
+    const exactFields = ['status', 'category'];
+    const rangeFields = ['progress'];
+    const arrayFields = ['tags'];
+    
+    // Construir query base
+    let baseQuery = {};
+    
     // Si es instructor, solo mostrar sus actividades
     if (req.user.role === 'instructor') {
-      activities = await Activity.find({ instructor: req.user.id })
-        .populate('instructor', ['name', 'email'])
-        .sort({ createdAt: -1 });
-    } else {
-      // Si es admin o superadmin, mostrar todas las actividades
-      activities = await Activity.find()
-        .populate('instructor', ['name', 'email'])
-        .sort({ createdAt: -1 });
+      baseQuery.instructor = req.user.id;
     }
-
-    res.json(activities);
+    
+    // Construir query de búsqueda
+    const searchQuery = buildSearchQuery(req.query, textFields, exactFields, rangeFields, arrayFields);
+    
+    // Combinar queries
+    const finalQuery = { ...baseQuery, ...searchQuery };
+    
+    // Opciones de paginación
+    const { page, limit, skip } = buildPaginationOptions(req.query);
+    
+    // Opciones de ordenamiento
+    const sort = buildSortOptions(req.query);
+    
+    // Ejecutar consulta
+    const activities = await Activity.find(finalQuery)
+      .populate('instructor', ['name', 'email'])
+      .sort(sort)
+      .skip(skip)
+      .limit(limit);
+    
+    // Contar total para metadata de paginación
+    const total = await Activity.countDocuments(finalQuery);
+    
+    res.json({
+      activities,
+      pagination: {
+        total,
+        page,
+        limit,
+        pages: Math.ceil(total / limit)
+      }
+    });
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Error del servidor');
