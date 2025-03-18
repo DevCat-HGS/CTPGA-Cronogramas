@@ -28,4 +28,5 @@ CTPGA Manager es una aplicación web integral diseñada para optimizar la organi
 - Notificaciones en tiempo real con Socket.io
 - Generación de reportes
 
+
 ### **Powered By**: [DevCat-HGS](https://github.com/DevCat-HGS)
