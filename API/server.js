@@ -36,6 +36,22 @@ const connectDB = async () => {
 
 connectDB();
 
+// Importar configuración de Swagger
+const setupSwagger = require('./middleware/swagger');
+
+// Importar logger
+const { logger, logApiAccess } = require('./utils/logger');
+
+// Middleware para logging de API
+app.use((req, res, next) => {
+  const start = Date.now();
+  res.on('finish', () => {
+    const responseTime = Date.now() - start;
+    logApiAccess(req, res, responseTime);
+  });
+  next();
+});
+
 // Definir rutas
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/users', require('./routes/users'));
@@ -47,6 +63,12 @@ app.use('/api/templates', require('./routes/templates'));
 app.use('/api/badges', require('./routes/badges'));
 app.use('/api/analytics', require('./routes/analytics'));
 app.use('/api/calendar', require('./routes/calendar'));
+app.use('/api/backup', require('./routes/backup'));
+app.use('/api/feedback', require('./routes/feedback'));
+app.use('/api/guide-versions', require('./routes/guideVersions'));
+
+// Configurar Swagger
+setupSwagger(app);
 
 // Socket.io para notificaciones en tiempo real
 io.on('connection', (socket) => {

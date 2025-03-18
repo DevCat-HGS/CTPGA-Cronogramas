@@ -19,6 +19,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "winston": "^3.8.2",
+    "winston-daily-rotate-file": "^4.7.1",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^4.6.3",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
