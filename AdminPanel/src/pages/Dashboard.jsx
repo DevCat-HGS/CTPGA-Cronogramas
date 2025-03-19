@@ -14,6 +14,13 @@ const Dashboard = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    // Verificar si el usuario existe antes de continuar
+    if (!user) {
+      setLoading(false);
+      setError('Usuario no autenticado. Por favor, inicia sesión nuevamente.');
+      return;
+    }
+
     const fetchStats = async () => {
       try {
         // Obtener estadísticas de actividades
@@ -47,7 +54,7 @@ const Dashboard = () => {
     };
 
     fetchStats();
-  }, [user.role]);
+  }, [user]);
 
   if (loading) {
     return (
@@ -70,11 +77,11 @@ const Dashboard = () => {
       <div className="md:flex md:items-center md:justify-between mb-8">
         <div className="min-w-0 flex-1">
           <h2 className="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">
-            Bienvenido, {user.name}
+            Bienvenido, {user?.name || 'Usuario'}
           </h2>
           <p className="mt-1 text-sm text-gray-500">
-            {user.role === 'superadmin' ? 'Super Administrador' : 
-             user.role === 'admin' ? `Administrador - ${user.area}` : 
+            {user?.role === 'superadmin' ? 'Super Administrador' : 
+             user?.role === 'admin' ? `Administrador - ${user?.area || ''}` : 
              'Instructor'}
           </p>
         </div>
@@ -160,7 +167,7 @@ const Dashboard = () => {
         </div>
 
         {/* Tarjeta de Usuarios Pendientes (solo para admin y superadmin) */}
-        {['admin', 'superadmin'].includes(user.role) && (
+        {user && ['admin', 'superadmin'].includes(user.role) && (
           <div className="bg-white overflow-hidden shadow rounded-lg">
             <div className="p-5">
               <div className="flex items-center">

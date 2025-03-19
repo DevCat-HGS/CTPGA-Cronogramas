@@ -34,7 +34,8 @@ const Events = () => {
         }
         
         const res = await axios.get(url);
-        setEvents(res.data);
+        // Asegurarse de que events siempre sea un array
+        setEvents(Array.isArray(res.data) ? res.data : []);
       } catch (err) {
         console.error('Error al cargar eventos:', err);
         setError('Error al cargar eventos. Por favor, intenta de nuevo.');

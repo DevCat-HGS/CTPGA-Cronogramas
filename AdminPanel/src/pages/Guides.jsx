@@ -29,7 +29,8 @@ const Guides = () => {
         }
         
         const res = await axios.get(url);
-        setGuides(res.data);
+        // Asegurarse de que guides siempre sea un array
+        setGuides(Array.isArray(res.data) ? res.data : []);
       } catch (err) {
         console.error('Error al cargar guías:', err);
         setError('Error al cargar guías. Por favor, intenta de nuevo.');

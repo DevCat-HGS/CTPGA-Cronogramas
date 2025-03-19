@@ -35,7 +35,8 @@ const Activities = () => {
         }
         
         const res = await axios.get(url);
-        setActivities(res.data);
+        // Asegurarse de que activities siempre sea un array
+        setActivities(Array.isArray(res.data) ? res.data : []);
       } catch (err) {
         console.error('Error al cargar actividades:', err);
         setError('Error al cargar actividades. Por favor, intenta de nuevo.');
