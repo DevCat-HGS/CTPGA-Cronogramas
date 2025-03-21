@@ -346,4 +346,4 @@ npm test -- --coverage --coverageReporters="html"
 
 ---
 
-Este documento es una guía viva que debe actualizarse regularmente a medida que evoluciona el proyecto CTPGA Manager y sus necesidades de prueba, Espero y encuentres lo que buscas.
+Este documento es una guía viva que debe actualizarse regularmente a medida que evoluciona el proyecto CTPGA Manager y sus necesidades de prueba.
