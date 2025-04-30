@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 const { check, validationResult } = require('express-validator');
 const auth = require('../middleware/auth');
 const User = require('../models/User');
+const refreshToken = require('../middleware/refreshToken');
 
 // @route   POST api/auth
 // @desc    Autenticar usuario y obtener token
@@ -108,5 +109,10 @@ router.post('/logout', auth, async (req, res) => {
     res.status(500).send('Error del servidor');
   }
 });
+
+// @route   POST api/auth/refresh
+// @desc    Renovar token JWT
+// @access  Public
+router.post('/refresh', refreshToken);
 
 module.exports = router;
